@@ -5,7 +5,7 @@ import {AnalysisStatus} from "./enums/AnalysisStatus.js";
 import {LoanProgram} from "./enums/LoanProgram.js";
 import {View} from "./enums/View.js";
 import {Region} from "./enums/Region.js";
-
+//Проверка!!!
 export class NewAnalysis {
     static pageHTML;
 
