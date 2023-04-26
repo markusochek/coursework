@@ -1,9 +1,9 @@
 export class FullName {
-    private lastName: String;
-    private firstName: String;
-    private patronymic: String;
+    lastName;
+    firstName;
+    patronymic;
 
-    constructor(lastName: String, firstName: String, patronymic: String) {
+    constructor(lastName, firstName, patronymic) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.patronymic = patronymic;

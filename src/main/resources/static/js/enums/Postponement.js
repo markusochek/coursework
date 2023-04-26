@@ -1,4 +1,4 @@
-export enum Postponement {
-    мер,
-    _12_леяъжеб
+export const Postponement = {
+    NO: "п²п∙п╒",
+    _12_MONTHS: "12_п°п∙п║п╞п╕п∙п▓"
 }

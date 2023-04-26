@@ -1,3 +1,3 @@
-export enum RepaymentPeriod {
-    ¬_ ŒÕ÷≈_—–Œ ¿
+export const RepaymentPeriod = {
+    AT_END_OF_THE_TERM: "–í_–ö–û–ù–¶–ï_–°–†–û–ö–ê"
 }

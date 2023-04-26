@@ -1,5 +1,5 @@
-export enum AdditionalSupport {
-    мер,
-    гюкнц_юбрнлнахкъ,
-    гюкнц_деонгхрю
+export const AdditionalSupport = {
+    NO: "п²п∙п╒",
+    CAR_DEPOSIT: "п≈п░п⌡п·п⌠_п░п▓п╒п·п°п·п▒п≤п⌡п╞",
+    DEPOSIT: "п≈п░п⌡п·п⌠"
 }

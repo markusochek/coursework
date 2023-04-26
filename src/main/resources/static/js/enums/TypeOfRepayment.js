@@ -1,5 +1,5 @@
-export enum TypeOfRepayment {
-    юммсхрер,
-    дхттепемжхпнбюммши_окюреф,
-    б_йнмже_япнйю
+export const TypeOfRepayment = {
+    ANNUITY: "п░п²п²пёп≤п╒п∙п╒",
+    DIFFERENTIATED_PAYMENT: "п■п≤п╓п╓п∙п═п∙п²п╕п≤п═п·п▓п░п²п²п╚п≥_п÷п⌡п░п╒п∙п√",
+    AT_END_OF_THE_TERM: "п▓_п п·п²п╕п∙_п║п═п·п п░"
 }

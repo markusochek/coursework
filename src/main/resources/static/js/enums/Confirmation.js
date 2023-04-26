@@ -1,5 +1,5 @@
-export enum Confirmation {
-    днйслемрш,
-    юмйерю,
-    отп
+export const Confirmation = {
+    DOCUMENTS: "п■п·п пёп°п∙п²п╒п╚",
+    QUESTIONNAIRE: "п░п²п п∙п╒п░",
+    FIU: "п÷п╓п═"
 }

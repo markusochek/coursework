@@ -1,3 +1,4 @@
+"use strict";
 import {GeneralInformation} from "./entities/GeneralInformation.js";
 import {FullName} from "./entities/FullName.js";
 
@@ -7,35 +8,55 @@ import {View} from "./enums/View.js";
 import {Region} from "./enums/Region.js";
 
 export class NewAnalysis {
-    static pageHTML;
+    pageHTML;
+    inputs = [];
+    labels = [];
 
-    constructor(pageHTML) {
-        NewAnalysis.pageHTML = pageHTML;
+    constructor(pageHTML, server) {
+        this.pageHTML = pageHTML;
+        this.server = server;
     }
 
-    page() {
-        let generalInformation = new GeneralInformation(
-            new Date(2022, 8, 2),
-            new Date(2023, 3, 28),
-            AnalysisStatus.ОФОРМЛЕНИЕ,
-            LoanProgram.ИПОТЕКА_ДО_6_МЕСЯЦЕВ,
-            View.КПК,
-            Region.УДМУРТСКАЯ_РЕСПУБЛИКА,
-            false,
-            new FullName("Сагалаев", " Эдуард", " Николаевич"),
-            true);
+    page = () =>  {
+    this.pageHTML.innerHTML = null;
+
+    let generalInformation = new GeneralInformation(
+        new Date(2022, 8, 2),
+        new Date(2023, 3, 28),
+        AnalysisStatus.DECORATION,
+        LoanProgram.MORTGAGE_6_MONTHS,
+        View.CREDIT_CONSUMER_COOPERATIVE,
+        Region.UDMURT_REPUBLIC,
+        false,
+        new FullName("Сагалаев", " Эдуард", " Николаевич"),
+        true);
+
+        let generalInformationKeys = Object.keys(generalInformation)
+        let generalInformationValues = Object.values(generalInformation)
+        for(let i = 0; i < generalInformationKeys.length; i++) {
+            let div = document.createElement("div");
+            this.pageHTML.append(div);
+
+            this.labels.push(document.createElement("label"));
+            this.labels[i].innerHTML = generalInformationKeys[i];
+
+            this.inputs.push(document.createElement("input"));
+            this.inputs[i].placeholder = generalInformationKeys[i];
+            this.inputs[i].value = generalInformationValues[i];
+
+            div.append(this.labels[i])
+            div.append(this.inputs[i])
+        }
+
 
         let button = document.createElement("button");
         button.innerText = "Анализ";
-        button.onclick = NewAnalysis.request;
+        button.onclick = this.request;
 
-        NewAnalysis.pageHTML.innerHTML = null;
-        NewAnalysis.pageHTML.append(button);
+        this.pageHTML.append(button);
     }
 
-    static request() {
-        const authorizationLogin = document.getElementById("authorizationLogin");
-        const authorizationPassword = document.getElementById("authorizationPassword");
-        // server.authorization(authorizationLogin.value, authorizationPassword.value);
+    request = () => {
+        this.server.newAnalysis(this.inputs.values())
     }
 }

@@ -1,8 +1,8 @@
-export enum View {
-    Ã— _œŒ ”œ ¿_∆»À‹ﬂ,
-    Ã— _«¿¬_—“–,
-     œ ,
-    Ã— _ œ ,
-    _450_¡¿Õ ,
-    _450_—“–Œ… ¿,
+export const View = {
+    MSK_PURCHASE_OF_HOUSING: "–ú–°–ö_–ü–û–ö–£–ü–ö–ê_–ñ–ò–õ–¨–Ø",
+    MSK_ZAV_STR: "–ú–°–ö_–ó–ê–í_–°–¢–†",
+    CREDIT_CONSUMER_COOPERATIVE: "–ö–ü–ö",
+    MSK_CREDIT_CONSUMER_COOPERATIVE: "–ú–°–ö_–ö–ü–ö",
+    _450_BANK: "450_–ë–ê–ù–ö",
+    _450BUILDING: "450_–°–¢–†–û–ô–ö–ê"
 }

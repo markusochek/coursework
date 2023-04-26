@@ -1,5 +1,5 @@
-export enum VerificationResult {
-    œŒÀŒ∆»“≈À‹ÕŒ,
-    Œ“–»÷¿“≈À‹ÕŒ,
-    Õ¿_ ŒÃ»“≈“
+export const VerificationResult = {
+    POSITIVE: "–ü–û–õ–û–ñ–ò–¢–ï–õ–¨–ù–û",
+    NEGATIVE: "–û–¢–†–ò–¶–ê–¢–ï–õ–¨–ù–û",
+    TO_COMMITTEE: "–ù–ê_–ö–û–ú–ò–¢–ï–¢"
 }

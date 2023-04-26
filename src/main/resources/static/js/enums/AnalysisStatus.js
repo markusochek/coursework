@@ -1,5 +1,5 @@
-export enum AnalysisStatus {
-    нтнплкемхе,
-    йнмяскэрюжхъ,
-    юмюкхг_деиярбсчыецн_йпедхрю
+export const AnalysisStatus = {
+    DECORATION: "п·п╓п·п═п°п⌡п∙п²п≤п∙",
+    CONSULTATION: "п п·п²п║пёп⌡п╛п╒п░п╕п≤п╞",
+    VALID_CREDIT_ANALYSIS: "п░п²п░п⌡п≤п≈_п■п∙п≥п║п╒п▓пёп╝п╘п∙п⌠п·_п п═п∙п■п≤п╒п░"
 }
