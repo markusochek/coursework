@@ -1,3 +1,5 @@
+import {Status} from "./enums/Status.js";
+
 export class Server {
 
     async POST(object, url) {
@@ -6,6 +8,7 @@ export class Server {
             headers: {'Content-Type': 'application/json;charset=utf-8'},
             body: JSON.stringify(object)
         });
+
         return await response.json();
     }
 
@@ -15,16 +18,11 @@ export class Server {
     }
 
     async newAnalysis(values) {
-        const data = await this.POST(values, `api/newAnalysis`)
-        switch (data.status) {
-            case 'OK': {
-                console.log('YEEESSSSS');
-                break;
-            }
-            case 'ERROR': {
-                console.error('ERROR gamerEnterSession');
-                break;
-            }
+        const response = await this.POST(values, `api/newAnalysis`)
+
+        switch (response.status) {
+            case Status.OK: return ""
+            case Status.ERROR: return ""
         }
     }
 }
