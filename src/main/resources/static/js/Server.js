@@ -1,4 +1,4 @@
-import {Status} from "./enums/Status.js";
+import {Status} from "./enumerations/Status.js";
 
 export class Server {
 

@@ -40,7 +40,7 @@ label {
     text-align: right;
 }
 
-  button, input{
+  button, input, select, option {
     width: 700px;
     height: 80px;
 
