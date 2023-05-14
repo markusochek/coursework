@@ -1,3 +1,5 @@
+import {WrapperDate} from "./WrapperDate.js";
+
 export class HeadGeneralInformation {
     version
     date
@@ -8,8 +10,8 @@ export class HeadGeneralInformation {
     isSpecialProgramForMedicalWorkers
 
     constructor(version, date, analysisStatus, loanProgram, view, region, isSpecialProgramForMedicalWorkers) {
-        this.version = version || new Date();
-        this.date = date || new Date();
+        this.version = WrapperDate(version) || WrapperDate(new Date());
+        this.date = WrapperDate(date) || WrapperDate(new Date());
         this.analysisStatus = analysisStatus || null;
         this.loanProgram = loanProgram || null;
         this.view = view || null;

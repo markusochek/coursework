@@ -8,4 +8,8 @@ export class Guarantee {
         this.isGuarantee = isGuarantee || false;
         this.fullName = fullName || new FullName();
     }
+
+    toString() {
+        return this.fullName.toString();
+    }
 }

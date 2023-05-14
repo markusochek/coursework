@@ -1,5 +1,5 @@
 export const AdditionalSupport = {
     NO: "НЕТ",
     CAR_DEPOSIT: "ЗАЛОГ_АВТОМОБИЛЯ",
-    DEPOSIT: "ЗАЛОГ"
+    DEPOSIT: "ЗАЛОГ_ДЕПОЗИТА"
 }

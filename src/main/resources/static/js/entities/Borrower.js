@@ -1,4 +1,5 @@
 import {FullName} from "./FullName.js";
+import {WrapperDate} from "./WrapperDate.js";
 
 export class Borrower {
 	fullName;
@@ -17,7 +18,7 @@ export class Borrower {
 
 	constructor(fullName, dateOfBirth, age, isSalaryProject, dependents, income, confirmation, isDelayOfMoreThan20Days, isBankrupt, scoring) {
 		this.fullName = fullName || new FullName();
-		this.dateOfBirth = dateOfBirth || new Date();
+		this.dateOfBirth = WrapperDate(dateOfBirth) || WrapperDate(new Date())
 		this.age = age || 0;
 		this.isSalaryProject = isSalaryProject || false;
 		this.dependents = dependents || 0;
