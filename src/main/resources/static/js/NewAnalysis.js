@@ -164,14 +164,13 @@ export class NewAnalysis {
 
             } else {
                 let input = document.createElement("input");
+                input.placeholder = object;
+                input.value = object[objectKey];
                 div.append(input);
 
-                input.placeholder = object;
-                if (object[objectKey].hasOwnProperty("Date")) {
-                    input.value = object[objectKey].Date;
+                if (objectKey === "version" || objectKey === "date" || objectKey === "dateOfBirth") {
                     jsDatepicker(input);
-                } else {
-                    input.value = object[objectKey];
+                    input.value = object[objectKey].toLocaleDateString();
                 }
             }
         }
