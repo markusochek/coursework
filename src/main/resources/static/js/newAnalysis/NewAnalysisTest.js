@@ -1,62 +1,44 @@
-"use strict";
-
-import {HeadGeneralInformation} from "./entities/HeadGeneralInformation.js";
-import {Enumerations} from "./enumerations/Enumerations.js";
-import {BorrowersIncome} from "./entities/BorrowersIncome.js";
-import {Borrower} from "./entities/Borrower.js";
-import {LoanConditions} from "./entities/LoanConditions.js";
-import {FootGeneralInformation} from "./entities/FootGeneralInformation.js";
-
+import {HeadGeneralInformation} from "../entities/HeadGeneralInformation.js";
+import {AnalysisStatus} from "../enumerations/AnalysisStatus.js";
+import {View} from "../enumerations/View.js";
+import {BodyGeneralInformation} from "../entities/BodyGeneralInformation.js";
+import {LoanProgram} from "../enumerations/LoanProgram.js";
+import {Region} from "../enumerations/Region.js";
+import {Borrower} from "../entities/Borrower.js";
+import {FullName} from "../entities/FullName.js";
+import {Confirmation} from "../enumerations/Confirmation.js";
+import {BorrowersIncome} from "../entities/BorrowersIncome.js";
+import {FootGeneralInformation} from "../entities/FootGeneralInformation.js";
+import {LoanConditions} from "../entities/LoanConditions.js";
+import {TypeOfRepayment} from "../enumerations/TypeOfRepayment.js";
+import {Postponement} from "../enumerations/Postponement.js";
+import {RepaymentPeriod} from "../enumerations/RepaymentPeriod.js";
+import {Guarantee} from "../entities/Guarantee.js";
+import {AdditionalSupport} from "../enumerations/AdditionalSupport.js";
+import {Enumerations} from "../enumerations/Enumerations.js";
 import {jsDatepicker} from "./jsDatepicker.js";
-import {FullName} from "./entities/FullName.js";
 
-import {TypeOfRepayment} from "./enumerations/TypeOfRepayment.js";
-import {Postponement} from "./enumerations/Postponement.js";
-import {Confirmation} from "./enumerations/Confirmation.js";
-import {RepaymentPeriod} from "./enumerations/RepaymentPeriod.js";
-import {AdditionalSupport} from "./enumerations/AdditionalSupport.js";
-import {AnalysisStatus} from "./enumerations/AnalysisStatus.js";
-import {LoanProgram} from "./enumerations/LoanProgram.js";
-import {View} from "./enumerations/View.js";
-import {Region} from "./enumerations/Region.js";
-
-import {Guarantee} from "./entities/Guarantee.js";
-
-export class NewAnalysis {
-    pageHTML;
-    inputs = [];
-
-    constructor(pageHTML, server) {
-        this.pageHTML = pageHTML;
-        this.server = server;
-    }
-
-    page = () =>  {
-    this.pageHTML.innerHTML = null;
-
-        this.showHeadGeneralInformation();
-        // this.showBorrowers();
-        // this.showBorrowersIncome();
-        // this.showLoanConditions();
-        // this.showFootGeneralInformation();
-
-        this.showButtonAnalysis();
-    }
+export class NewAnalysisTest {
 
     showHeadGeneralInformation() {
         let headGeneralInformation = new HeadGeneralInformation(
             new Date(2022, 8, 2),
-            new Date(2023, 3, 28),
             AnalysisStatus.DECORATION,
-            LoanProgram.MORTGAGE_6_MONTHS,
-            View.CREDIT_CONSUMER_COOPERATIVE,
-            Region.UDMURT_REPUBLIC,
-            false,
-            new FullName("Сагалаев", " Эдуард", " Николаевич"),
-            true);
+            View.CREDIT_CONSUMER_COOPERATIVE,);
 
         // let headGeneralInformation = new HeadGeneralInformation();
         this.showObject(headGeneralInformation);
+    }
+
+    showBodyGeneralInformation() {
+        let bodyGeneralInformation = new BodyGeneralInformation(
+            LoanProgram.MORTGAGE_6_MONTHS,
+            new Date(2023, 3, 28),
+            Region.UDMURT_REPUBLIC,
+            false);
+
+        // let bodyGeneralInformation = new BodyGeneralInformation();
+        this.showObject(bodyGeneralInformation);
     }
 
     showBorrowers() {
@@ -138,6 +120,9 @@ export class NewAnalysis {
     showObject(object) {
         for (const objectKey in object) {
             let div = document.createElement("div");
+            div.className = `box`;
+            div.style.gridColumn = `span ${12 / Object.keys(object).length}`;
+            console.log(`span ${12 / Object.keys(object).length}`);
             this.pageHTML.append(div);
 
             let label = document.createElement("label");
@@ -174,18 +159,5 @@ export class NewAnalysis {
                 }
             }
         }
-    }
-
-    showButtonAnalysis() {
-
-        let button = document.createElement("button");
-        button.innerText = "Анализ";
-        button.onclick = this.request;
-
-        this.pageHTML.append(button);
-    }
-
-    request = () => {
-        this.server.newAnalysis(this.inputs.values())
     }
 }

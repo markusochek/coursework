@@ -2,3 +2,33 @@ html {
     background: url(../img/orangeBG.jpg) no-repeat center center fixed;
     background-size: cover;
 }
+
+
+body {
+    font-family: sans-serif;
+    font-size: calc(12px + 16 * (100vw / 1280));
+    text-align: center;
+    width: 100%;
+    min-height: 100vh;
+}
+
+input, select, option {
+    font-size: calc(2px + 16 * (100vw / 1280));
+    width: 80%;
+    height: 80%;
+}
+
+.box {
+    background-color: skyblue;
+    display: grid;
+    place-items: center;
+}
+
+.container {
+    display: grid;
+    gap: 20px;
+    height: 100vh;
+
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+}
