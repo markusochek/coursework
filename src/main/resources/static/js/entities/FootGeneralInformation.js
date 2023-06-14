@@ -2,14 +2,14 @@ import {FullName} from "./FullName.js";
 
 export class FootGeneralInformation {
     executor
-    committee
+    // committee
 
-    constructor(executor, committee) {
+    constructor(executor) {
         this.executor = executor || new FullName();
-        this.committee = committee || false;
+        // this.committee = committee || false;
     }
 
     getLabels() {
-        return ["Исполнитель", "Проверка на комитет"];
+        return ["Исполнитель"]// , "Проверка на комитет"];
     }
 }

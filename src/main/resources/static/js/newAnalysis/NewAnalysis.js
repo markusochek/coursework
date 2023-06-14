@@ -2,127 +2,120 @@
 
 import {HeadGeneralInformation} from "../entities/HeadGeneralInformation.js";
 import {BodyGeneralInformation} from "../entities/BodyGeneralInformation.js";
-import {Enumerations} from "../enumerations/Enumerations.js";
-import {BorrowersIncome} from "../entities/BorrowersIncome.js";
-import {Borrower} from "../entities/Borrower.js";
-import {LoanConditions} from "../entities/LoanConditions.js";
+import {HeadLoanConditions} from "../entities/HeadLoanConditions.js";
 import {FootGeneralInformation} from "../entities/FootGeneralInformation.js";
 
-import {jsDatepicker} from "./jsDatepicker.js";
+import {ConstructorDisplay} from "../ConstructorDisplay.js";
+import {Server} from "../Server.js";
+import {Status} from "../enumerations/Status.js";
+import {AuthenticationDisplay} from "../authentication/AuthenticationDisplay.js";
+import {BodyLoanConditions} from "../entities/BodyLoanConditions.js";
+import {FootLoanConditions} from "../entities/FootLoanConditions.js";
+import {ForCommercialRealEstate} from "../entities/ForCommercialRealEstate.js";
 
 export class NewAnalysis {
-    pageHTML;
-    container;
-    inputs = [];
+    static numberOfColumns = ConstructorDisplay.NUMBERS_OF_COLUMNS;
+    static numberOfRows = ConstructorDisplay.NUMBERS_OF_ROWS;
 
-    constructor(pageHTML, server) {
-        this.pageHTML = pageHTML;
-        this.pageHTML.className = "container";
+    static headGeneralInformation;
+    static bodyGeneralInformation;
+    static headLoanConditions;
+    static forCommercialRealEstate;
+    static bodyLoanConditions;
+    static footLoanConditions;
+    static footGeneralInformation;
 
-        this.server = server;
+    static page = () =>  {
+        ConstructorDisplay.pageHTML.innerHTML = null;
+        ConstructorDisplay.setColumnsRows(NewAnalysis.numberOfColumns, NewAnalysis.numberOfRows)
+
+        ConstructorDisplay.showButton("Выйти", NewAnalysis.requestExit, 1);
+
+        NewAnalysis.showHeadGeneralInformation();
+        NewAnalysis.showBodyGeneralInformation();
+        NewAnalysis.showHeadLoanConditions();
+        NewAnalysis.showForCommercialRealEstate();
+        NewAnalysis.showBodyLoanConditions();
+        NewAnalysis.showFootLoanConditions();
+        NewAnalysis.showFootGeneralInformation();
+
+        ConstructorDisplay.showButton("Проверить на комитет", NewAnalysis.request, 1);
     }
 
-    page = () =>  {
-        this.pageHTML.innerHTML = null;
-
-        this.showHeadGeneralInformation();
-        this.showBodyGeneralInformation();
-        // this.showBorrowers();
-        // this.showBorrowersIncome();
-        // this.showLoanConditions();
-        // this.showFootGeneralInformation();
-
-        // this.showButtonAnalysis();
+    static showHeadGeneralInformation() {
+        NewAnalysis.headGeneralInformation = new HeadGeneralInformation();
+        ConstructorDisplay.showObject(NewAnalysis.headGeneralInformation);
     }
 
-    showHeadGeneralInformation() {
-        let headGeneralInformation = new HeadGeneralInformation();
-        this.showObject(headGeneralInformation);
+    static showBodyGeneralInformation() {
+        NewAnalysis.bodyGeneralInformation = new BodyGeneralInformation();
+        ConstructorDisplay.showObject(NewAnalysis.bodyGeneralInformation);
     }
 
-    showBodyGeneralInformation() {
-        let bodyGeneralInformation = new BodyGeneralInformation();
-        this.showObject(bodyGeneralInformation);
+    static showHeadLoanConditions() {
+        NewAnalysis.headLoanConditions = new HeadLoanConditions();
+        NewAnalysis.headLoanConditions.span = () => {return 2};
+        ConstructorDisplay.showObject(NewAnalysis.headLoanConditions);
     }
 
-    showBorrowers() {
-        let borrower = new Borrower();
-        let coBorrower = new Borrower();
-        this.showObject(borrower);
-        this.showObject(coBorrower);
+    static showForCommercialRealEstate() {
+        NewAnalysis.forCommercialRealEstate = new ForCommercialRealEstate();
+        ConstructorDisplay.showObject(NewAnalysis.forCommercialRealEstate);
     }
 
-    showBorrowersIncome() {
-        let borrowersIncome = new BorrowersIncome();
-        this.showObject(borrowersIncome);
+    static showBodyLoanConditions() {
+        NewAnalysis.bodyLoanConditions = new BodyLoanConditions();
+        NewAnalysis.bodyLoanConditions.span = () => {return 3};
+        ConstructorDisplay.showObject(NewAnalysis.bodyLoanConditions);
     }
 
-    showFootGeneralInformation() {
-        let footGeneralInformation = new FootGeneralInformation();
-        this.showObject(footGeneralInformation);
+    static showFootLoanConditions() {
+        NewAnalysis.footLoanConditions = new FootLoanConditions();
+        NewAnalysis.footLoanConditions.span = () => {return 2};
+        ConstructorDisplay.showObject(NewAnalysis.footLoanConditions);
     }
 
-    showLoanConditions() {
-        let loanConditions = new LoanConditions();
-        this.showObject(loanConditions);
+    static showFootGeneralInformation() {
+        NewAnalysis.footGeneralInformation = new FootGeneralInformation();
+        ConstructorDisplay.showObject(NewAnalysis.footGeneralInformation);
     }
 
-    showObject(object) {
-        let i = 0;
-        let labels = object.getLabels();
-        for (const objectKey in object) {
-            let div = document.createElement("div");
-            div.className = `box`;
-            div.style.gridColumn = `span ${12 / Object.keys(object).length}`;
-            this.pageHTML.append(div);
-
-            let label = document.createElement("label");
-            label.innerHTML = labels[i];
-            div.append(label);
-
-            let enumeration = Enumerations.getEnumeration(objectKey);
-            if (enumeration) {
-                Enumerations.showEnumeration(div, enumeration);
-            } else if (typeof object[objectKey] === "boolean") {
-                let select = document.createElement("select");
-
-                let option = document.createElement("option");
-                option.value = "false";
-                option.textContent = "Нет";
-                select.append(option);
-
-                option = document.createElement("option");
-                option.value = "true";
-                option.textContent = "Да";
-                select.append(option);
-
-                div.append(select);
-
-            } else {
-                let input = document.createElement("input");
-                input.placeholder = object;
-                input.value = object[objectKey];
-                div.append(input);
-
-                if (objectKey === "version" || objectKey === "date" || objectKey === "dateOfBirth") {
-                    jsDatepicker(input);
-                    input.value = object[objectKey].toLocaleDateString();
+    static requestExit() {
+        Server.POST('unsetCookie', {name: 'token'}).then(
+            response => {
+                switch (response.status) {
+                    case Status.OK:
+                        AuthenticationDisplay.page();
+                        break;
+                    case Status.ERROR:
+                        console.log('unsetCookie error');
+                        break;
                 }
             }
-            ++i;
-        }
+        )
     }
 
-    showButtonAnalysis() {
+    static request = () => {
+        let object = ConstructorDisplay.wrapObjects({
+            headGeneralInformation: NewAnalysis.headGeneralInformation,
+            bodyGeneralInformation: NewAnalysis.bodyGeneralInformation,
+            headLoanConditions: NewAnalysis.headLoanConditions,
+            forCommercialRealEstate: NewAnalysis.forCommercialRealEstate,
+            bodyLoanConditions: NewAnalysis.bodyLoanConditions,
+            footLoanConditions: NewAnalysis.footLoanConditions,
+            footGeneralInformation: NewAnalysis.footGeneralInformation
+        })
 
-        let button = document.createElement("button");
-        button.innerText = "Анализ";
-        button.onclick = this.request;
-
-        this.pageHTML.append(button);
-    }
-
-    request = () => {
-        this.server.newAnalysis(this.inputs.values())
+        Server.POST('newAnalysis', object)
+            .then(response => {
+                switch (response.status) {
+                    case Status.OK:
+                        console.log('YESSSSSSSSSSS');
+                        break;
+                    case Status.ERROR:
+                        console.log('newAnalysis error');
+                        break;
+                }
+            })
     }
 }

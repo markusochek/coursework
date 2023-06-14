@@ -1,40 +1,34 @@
 import {AdditionalSupport} from "./AdditionalSupport.js";
 import {AnalysisStatus} from "./AnalysisStatus.js";
-import {Confirmation} from "./Confirmation.js";
 import {LoanProgram} from "./LoanProgram.js";
 import {Postponement} from "./Postponement.js";
 import {Region} from "./Region.js";
 import {RepaymentPeriod} from "./RepaymentPeriod.js";
 import {Status} from "./Status.js";
 import {TypeOfRepayment} from "./TypeOfRepayment.js";
-import {VerificationResult} from "./VerificationResult.js";
 import {View} from "./View.js";
 
 export class Enumerations {
     additionalSupport;
     analysisStatus;
-    confirmation;
     loanProgram;
     postponement;
     region;
     repaymentPeriod;
     status;
     typeOfRepayment;
-    verificationResult;
     view;
 
 
     constructor() {
         this.additionalSupport = AdditionalSupport;
         this.analysisStatus = AnalysisStatus;
-        this.confirmation = Confirmation;
         this.loanProgram = LoanProgram;
         this.postponement = Postponement;
         this.region = Region;
         this.repaymentPeriod = RepaymentPeriod;
         this.status = Status;
         this.typeOfRepayment = TypeOfRepayment;
-        this.verificationResult = VerificationResult;
         this.view = View;
     }
 
@@ -58,5 +52,9 @@ export class Enumerations {
             select.append(option);
         }
         div.append(select);
+    }
+
+    static getKeyByValue(object, value) {
+        return Object.keys(object).find(key => object[key] === value);
     }
 }
