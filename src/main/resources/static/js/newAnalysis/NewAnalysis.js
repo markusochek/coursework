@@ -110,7 +110,15 @@ export class NewAnalysis {
             .then(response => {
                 switch (response.status) {
                     case Status.OK:
-                        console.log('YESSSSSSSSSSS');
+                        ConstructorDisplay.pageHTML.innerHTML = null;
+                        let object = {
+                            committee: "НЕТ",
+                            getLabels() {return ["Проверка на комитет"]},
+                            span: () => {
+                                return 1;
+                            }
+                        }
+                        ConstructorDisplay.showObject(object);
                         break;
                     case Status.ERROR:
                         console.log('newAnalysis error');
